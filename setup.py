@@ -9,7 +9,7 @@ requirements = [
 ]
 
 setup(
-    name='bloxroute',
+    name='bxgateway',
     packages=['bloxroute_cli', 'bxgateway'],
     package_dir={'': 'src'},
     install_requires=requirements
