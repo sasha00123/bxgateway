@@ -37,7 +37,8 @@ class CloudWssProvider(WsProvider):
         ca_file: Optional[str] = None,
         ca_url: str = CA_CERT_URL,
         ws_uri: str = CLOUD_WEBSOCKETS_URL,
-        node_type: str = DEFAULT_NODE_NAME
+        node_type: str = DEFAULT_NODE_NAME,
+        max_size: int = 2 ** 24
     ):
         if ssl_dir is None:
             ssl_dir = os.path.join(
@@ -73,6 +74,7 @@ class CloudWssProvider(WsProvider):
         )
         context.check_hostname = False
         self.ssl_context = context
+        self.max_size = max_size
 
     async def connect_websocket(self) -> websockets.WebSocketClientProtocol:
-        return await websockets.connect(self.uri, ssl=self.ssl_context)
+        return await websockets.connect(self.uri, ssl=self.ssl_context, max_size=self.max_size)
